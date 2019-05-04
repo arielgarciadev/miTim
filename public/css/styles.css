@@ -1,0 +1,47 @@
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.bg-a {
+    background-color: #27ae60;
+}
+
+.bg-b {
+    background-color: #2ecc71;
+}
+
+.new-shadow {
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4) !important;
+}
+
+.img-profiles {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: auto 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.icons-nav {
+    font-size: 1.5rem;
+    line-height: 1rem;
+    vertical-align: middle;
+}
+
+.img-profile-big {
+    width: 5rem;
+    height: 5rem;
+    margin: auto 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.block {
+    display: block;
+}
+
+.noborder {
+    border:none;
+}
+
+.contenedor-body {
+    width: 100%;
+}
