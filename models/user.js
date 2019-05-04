@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+  username: {
+		type: String,
+		index:true
+	},
   name: {
     type: String,
     required: true
@@ -16,9 +20,15 @@ const UserSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  userImage : {
+		type:String,
+		default:'default.png'
+  },
+  group: [{	 userID: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
+  name: {type: String, default: ''}
+  }],
+
 });
 
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);     
