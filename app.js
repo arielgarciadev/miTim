@@ -5,21 +5,28 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+
 const app = express();
 
-// Passport Config
+// Carpeta pública
+app.use('/public', express.static(__dirname + '/public'));
+
+// Configuración de Passport
 require('./config/passport')(passport);
 
-// DB Config
-const db = require('./config/keys').mongoURI;
+// Configuración de DB
+const db = require('./config/keys').MongoURI;
 
-// Connect to MongoDB
+// Conexión a MongoDB
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true }
+    { useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
   )
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => console.log('MongoDB Conectado'))
   .catch(err => console.log(err));
 
 // EJS
@@ -45,7 +52,7 @@ app.use(passport.session());
 // Connect flash
 app.use(flash());
 
-// Global variables
+// Variables globales
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
@@ -59,4 +66,4 @@ app.use('/users', require('./routes/users.js'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(PORT, console.log(`Servidor iniciado en el puerto ${PORT}`));
