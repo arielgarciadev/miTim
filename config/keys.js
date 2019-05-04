@@ -1,5 +1,5 @@
-dbPassword = 'mongodb+srv://YOUR_USERNAME_HERE:'+ encodeURIComponent('YOUR_PASSWORD_HERE') + '@CLUSTER_NAME_HERE.mongodb.net/test?retryWrites=true';
+dbPassword = "mongodb+srv://usuario1:KuaveXFHunQLtSgQ@cluster0-fpv8p.mongodb.net/test?retryWrites=true";
 
 module.exports = {
-    mongoURI: dbPassword
+    MongoURI: dbPassword
 };
