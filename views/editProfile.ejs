@@ -1,0 +1,73 @@
+ <!-- Nav superior. -->
+ <nav class="navbar fixed-top text-center text-white p-0 bg-a new-shadow">
+   <h6 class="text-center d-inline-block text-truncate font-weight-bolder"
+     style="max-width:80%;margin: auto;height: 2.5rem;line-height: 2.5;">Perfil</h6>
+   <a href="/profile" class="text-white"><i class="material-icons"
+       style="position: fixed; top: 0.5rem; left: 0.8rem;">navigate_before</i></a>
+   <div style="width: 100%;height: 6rem; align-items: center;" class="d-flex justify-content-center p-3 bg-b">
+     <div>
+       <img src="public/upload/<%=user.userImage%>" class="img-profile-big mr-1" alt="<%=user.userImage%>">
+     </div>
+     <div class="ml-1" style="text-align: left;margin: auto 0;">
+       <h6 class="mt-0 mb-0 font-weight-bolder"><%=user.name%></h6>
+       <p class="mb-0">@<%=user.username%></p>
+       <div class="estrellas" style="width: max-content;">
+         <i class="material-icons text-warning">star</i>
+         <i class="material-icons text-warning">star</i>
+         <i class="material-icons text-warning">star</i>
+         <i class="material-icons text-warning">star</i>
+         <i class="material-icons text-warning">star</i>
+       </div>
+     </div>
+   </div>
+ </nav>
+ <!-- Main -->
+
+ <div class="row ml-0 mr-0" style="margin-top: 10rem; margin-bottom: 5rem;">
+  <div style="margin:auto"><% include ./partials/messages %></div>
+   
+   <div class="col-md-12 m-auto">
+     <div class="card card-body noborder">
+       <h4 class="text-center mb-3">
+         <i class="fas fa-user-plus"></i> Editar perfil
+       </h4>
+       <form action="/editProfile" method="POST">
+         <div class="form-group">
+           <label for="name">Nombre</label>
+           <input type="name" id="name" name="name" class="form-control" placeholder="" value="<%=user.name%>" />
+         </div>
+         <div class="form-group">
+           <label>Nombre de usuario</label>
+           <input type="text" class="form-control" placeholder="" name="username" value="<%=user.username%>">
+         </div>
+         <div class="form-group">
+           <label for="email">Correo</label>
+           <input type="email" id="email" name="email" class="form-control" placeholder="" value="<%=user.email%>" />
+         </div>
+         <button type="submit" class="btn btn-success mb-2">
+           Editar
+         </button>
+       </form>
+     </div>
+   </div>
+   <div class="card card-body noborder">
+     <h4 class="text-center mt-0 mb-4">
+       <i class="fas fa-user-plus"></i> Editar imagen
+     </h4>
+     <form action="/editImage" style="margin:auto" enctype="multipart/form-data" method="POST">
+        <label class="btn btn-outline-dark">
+         <input type="file" name="upload" accept="image/*" style=" display: none;">
+          Seleccionar Imagen
+       </label>
+       <input type="submit" class=" btn btn-success mb-2" value="Upload">
+        </form>        
+   </div>
+ </div>
+ <!-- Nav inferior. -->
+ <nav class="navbar fixed-bottom navbar-dark bg-a" style="height: 3.2rem;">
+   <div class="container-fluid pl-3 pr-3">
+     <a class="text-white" href="/groups"><i class="material-icons align-middle font2rem">menu</i></a>
+     <a class="text-white" href="#"><i class="material-icons align-middle font2rem">home</i></a>
+     <a class="text-white" href="#"><i class="material-icons align-middle font2rem">person</i></a>
+   </div>
+ </nav>
