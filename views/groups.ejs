@@ -5,43 +5,44 @@
           style="max-width:80%;margin: auto;height: 2.5rem;line-height: 2.5;">Grupos</h6>
 
       <div style="width: 100%;height: 6rem; align-items: center;" class="d-flex justify-content-center p-3 bg-b">
-              <a class=" h5 text-white" href="#"><i class="material-icons align-middle font2rem">control_point</i><span class="ml-3">Crear grupo</span></a>
+              <a class=" h5 text-white" href="/createGroup"><i class="material-icons align-middle font2rem">control_point</i><span class="ml-3">Crear grupo</span></a>
       </div>
   </nav>
 
+   
   <!-- Main -->
   <div class="container-fluid pr-0" style="padding-top: 5rem;margin-bottom: 5rem; margin-top:4rem;">
-    <% grupos.forEach(function(element) { %>      
+    <%for (let i = 0; i < grupos.length; i++) {%>   
           <div class="bd-example p-0">
           <div class="media">
-              <div class="respuesta " style="margin: auto 0">
+              <div class="respuesta" style="margin: auto 0">
                   <i class="material-icons m-2" style="font-size: 3rem;">thumbs_up_down</i>
               </div>
               <div class="media-body d-flex justify-content-between"
                   style="border-bottom: 1px solid gray;padding: 1rem 1rem;">
                   <div>
-                      <h6 class="mt-0 font-weight-bolder"><%= element.name %></h6>
-                      <p>Jueves 25 de Abril a las 21:00.</p>
-                      <div class="estrellas" style="width: max-content;margin: auto;">
+                      <h6 class="mt-0 font-weight-bolder"><%= grupos[i].name %></h6>
+                      <p><%= grupos[i].date %> </p>
+                      <div class="" style="width: max-content">
                               <button type="button" class="btn mr-2 btn-success">Juego</button>
                               <button type="button" class="btn ml-2 btn-danger">No juego</button>
                       </div>
                   </div>
-                  <a class="respuesta" href="#" style="margin: auto 0">
+                  <a class="respuesta" href="/groups/<%= grupos[i].id %>" style="margin: auto 0">
                       <i class="material-icons m-2 text-secondary" style="font-size: 2rem;">navigate_next</i>
                   </a>
               </div>
           </div>
       </div>
-      <% }); %>
+      <%}%>
   </div>
   <!-- Nav inferior. -->
   <nav class="navbar fixed-bottom navbar-dark bg-a" style="height: 3.2rem;">
-      <div class="container-fluid pl-3 pr-3">
-          <a class="text-white" href="#"><i class="material-icons align-middle font2rem">menu</i></a>
-          <a class="text-white" href="#"><i class="material-icons align-middle font2rem">home</i></a>
-          <a class="text-white" href="#"><i class="material-icons align-middle font2rem">person</i></a>
-      </div>
+    <div class="container-fluid pl-3 pr-3">
+        <a class="text-white" href="/groups"><i class="material-icons align-middle font2rem">menu</i></a>
+        <a class="text-white" href="/home"><i class="material-icons align-middle font2rem">home</i></a>
+        <a class="text-white" href="/profile"><i class="material-icons align-middle font2rem">person</i></a>
+    </div>
   </nav>
 
 
