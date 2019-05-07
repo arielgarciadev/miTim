@@ -7,10 +7,7 @@ const passport = require('passport');
 const Group = require('../models/Group');
 const User = require('../models/User');
 
-const {
-  ensureAuthenticated,
-  forwardAuthenticated
-} = require('../config/auth');
+const {  forwardAuthenticated } = require('../config/auth');
 
 // Página de logueo.
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -120,65 +117,6 @@ router.post('/register', (req, res) => {
   }
 });
 
-// Crear Grupos
-router.post('/profile', (req, res) => {
-  const {
-    name,
-  } = req.body;
-  let errors = [];
-
-  if (!name) {
-    errors.push({
-      msg: 'Ingrese el nombre del grupo.'
-    });
-  } else {
-    Group.findOne({
-        name: name
-      })
-      .then(group => {
-        if (group) {
-          req.flash(
-            'error_msg',
-            'Este grupo ya existe.'
-          );
-          res.redirect('/profile');
-        } else {
-          const newGroup = new Group({
-            name,
-          });
-          newGroup.save()
-            .then(group => {
-              req.flash(
-                'success_msg',
-                'Creaste el grupo.'
-              );
-              res.redirect('/profile');
-            });
-          newGroup.users.push({
-            'userID': req.user.id,
-            'username': req.user.username,
-          });
-          User.findByIdAndUpdate(req.user._id, {
-              "$push": {
-                "group": {
-                  "groupID": newGroup._id,
-                  "name": newGroup.name
-                }
-              }
-            }, {
-              "new": true,
-              "upsert": true
-            },
-            function (err, managerparent) {
-              if (err) throw err;
-              console.log(managerparent);
-            }
-          );
-
-        }
-      });
-  }
-});
 
 // Login
 router.post('/login', (req, res, next) => {
