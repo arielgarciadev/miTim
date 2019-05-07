@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
   username: {
-		type: String,
-		index:true
-	},
+    type: String,
+    index: true
+  },
   name: {
     type: String,
     required: true
@@ -21,14 +21,21 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  userImage : {
-		type:String,
-		default:'default.png'
+  userImage: {
+    type: String,
+    default: 'default.png'
   },
-  group: [{	 userID: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  name: {type: String, default: ''}
+  //Id de los grupos del usuario.
+  group: [{
+    groupID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group'
+    },
+    play: {
+      type: String,
+      default: 'idk',
+    }
   }],
-
 });
 
-module.exports = mongoose.model('User', UserSchema);     
+module.exports = mongoose.model('User', UserSchema);

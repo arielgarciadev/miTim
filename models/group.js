@@ -7,6 +7,7 @@ const GroupSchema = new mongoose.Schema({
   },
   mode: {
     type: String,
+    default: 'play',
   },
   date: {
     type: String,
@@ -16,16 +17,14 @@ const GroupSchema = new mongoose.Schema({
   },
   note: {
     type: String,
+    default: '',
   },
+  //Id de los usuarios del grupo.
   users: [{
     userID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    username: {
-      type: String,
-      default: ''
-    }
   }],
 });
 
