@@ -11,11 +11,16 @@
           <h6 class="mt-0 mb-0 font-weight-bolder"><%=user.name%></h6>
           <p class="mb-0">@<%=user.username%></p>
           <div class="estrellas" style="width: max-content;">
-              <i class="material-icons text-warning">star</i>
-              <i class="material-icons text-warning">star</i>
-              <i class="material-icons text-warning">star</i>
-              <i class="material-icons text-warning">star</i>
-              <i class="material-icons text-warning">star</i>
+            <% total = 0; %>
+                    <% user.score.forEach(function (number) {%>
+                    <% total += number%>
+                    <% });%>
+            <div class="star-ratings-css">
+                <div class="star-ratings-css-top" style="width: <%=  Math.round( total / user.score.length * 200 ) / 10; %>%">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="star-ratings-css-bottom">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            </div>
           </div>
       </div>
   </div>

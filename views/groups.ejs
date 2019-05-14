@@ -3,35 +3,20 @@
   <h6 class="text-center d-inline-block text-truncate font-weight-bolder"
     style="max-width:80%;margin: auto;height: 2.5rem;line-height: 2.5;">Grupos</h6>
 
-  <div style="width: 100%;height: 6rem; align-items: center;" class="d-flex justify-content-center p-3 bg-b">
-    <a class=" h5 text-white" href="/createGroup"><i class="material-icons align-middle font2rem">control_point</i><span
+  <div id="titulo" style="width: 100%;height: 6rem; align-items: center;" class="d-flex justify-content-center p-3 bg-b">
+    <a class="h5 text-white" href="/createGroup"><i class="material-icons align-middle font2rem">control_point</i><span
         class="ml-3">Crear grupo</span></a>
   </div>
 </nav>
 
 
+
 <!-- Main -->
-<div class="container-fluid pr-0" style="padding-top: 5rem;margin-bottom: 5rem; margin-top:4rem;">
+<div id="listado" class="container-fluid pr-0" style="padding-top: 5rem;margin-bottom: 5rem; margin-top:4rem;">
   <%for (let i = 0; i < grupos.length; i++) {%>
   <div class="bd-example p-0">
     <div class="media">
       <div class="respuesta" style="margin: auto 0">
-        <i class="material-icons m-2" style='font-size: 3rem;
-        color: 
-          <%  if (user.group[i].play == "yes") {%>
-          <%="green"%>
-          <% } if (user.group[i].play == "no"){%>
-          <%= "red" %>
-          <%  } if (user.group[i].play == "idk"){%>
-          <%="gray"%>
-          <% }  %> '>
-          <%  if (user.group[i].play == "yes") {%>
-          <%="thumb_up"%>
-          <% } if (user.group[i].play == "no"){%>
-          <%= "thumb_down" %>
-          <%  } if (user.group[i].play == "idk"){%>
-          <%="thumbs_up_down"%>
-          <% }  %></i>
       </div>
       <div class="media-body d-flex justify-content-between" style="border-bottom: 1px solid gray;padding: 1rem 1rem;">
         <div>
@@ -64,8 +49,8 @@
     </div>
   </nav>
 
+  <script src="../public/js/script.js" defer></script>
 
-<% include ./partials/messages %>
   <!-- Cambiar fotos
 <form action="/" enctype="multipart/form-data" method="post" style="margin-top: 10px">
    <label class="custombutton" id="custombutton" style="width:200px;border: 1px solid #ccc;display: inline-block; padding: 6px 12px;cursor: pointer;">

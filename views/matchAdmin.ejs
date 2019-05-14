@@ -1,0 +1,71 @@
+<!-- Nav superior. -->
+<nav class="navbar fixed-top text-center text-white p-0 bg-a new-shadow">
+    <h6 class="text-center d-inline-block text-truncate font-weight-bolder"
+        style="max-width:80%;margin: auto;height: 2.5rem;line-height: 2.5;"><%=grupo.name%></h6>
+    <a href="/addUser/<%=grupo.id%>" class="text-white"><i class="material-icons"
+            style="position: fixed; top: 0.5rem; left: 0.8rem;">group_add</i></a>
+    <a href="/editGroups/<%=grupo.id%>" class="text-white"><i class="material-icons"
+            style="position: fixed; top: 0.5rem; right: 0.8rem;">edit</i></a>
+
+    <div style="width: 100%;height: 3rem; align-items: center;" class="d-flex justify-content-around p-3 bg-b">
+        <div><i class="material-icons icons-nav">face</i><span
+                class="num-nav font-weight-bolder ml-2"><%=usuarios.length%></span></div>
+        <div><i class="material-icons icons-nav">thumb_up</i><span id="juegan"
+                class="num-nav font-weight-bolder ml-2">0</span></div>
+        <div><i class="material-icons icons-nav">thumb_down</i><span id="noJuegan"
+                class="num-nav font-weight-bolder ml-2">0</span>
+        </div>
+    </div>
+</nav>
+<!-- Main -->
+<div class="container-fluid pr-0" style="padding-top: 5rem;margin-bottom: 5rem;">
+    <%for (let i = 0; i < usuarios.length; i++) {%>
+    <div class="bd-example p-0">
+        <div class="media">
+            <img src="../public/upload/<%=usuarios[i].image%>" class="img-profiles" alt="...">
+            <div class="media-body d-flex justify-content-between"
+                style="border-bottom: 1px solid gray;padding: 1rem 1rem;">
+                <div>
+                    <h6 class="mt-0 font-weight-bolder"><%=usuarios[i].name%></h6> 
+                    <% total = 0; %>
+                    <% usuarios[i].score.forEach(function (number) {%>
+                    <% total += number%>
+                    <% });%>                    
+                    <div class="estrellas" style="width: max-content;">
+                        <div class="star-ratings-css">
+                            <div class="star-ratings-css-top" style="width: <%=  Math.round( total / usuarios[i].score.length * 200 ) / 10; %>%">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            <div class="star-ratings-css-bottom">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        </div>                                              
+                    </div>
+                    
+                </div>
+
+                <div class="respuesta <%=grupo.users[i].response%>" style="margin: auto 0">
+                    <%  if (grupo.users[i].response == "yes") {%>
+                    <i class="material-icons m-2" style="font-size: 2rem;color:green">thumb_up</i>
+                    <% }  %>
+                    <%  if (grupo.users[i].response == "no") {%>
+                    <i class="material-icons m-2" style="font-size: 2rem;color:red">thumb_down</i>
+                    <% }  %>
+                    <%  if (grupo.users[i].response == "idk") {%>
+                    <i class="material-icons m-2" style="font-size: 2rem;color:gray">thumbs_up_down</i>
+                    <% }  %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>    
+</div>
+    <!-- Nav inferior. -->
+    <nav class="navbar fixed-bottom navbar-dark bg-a" style="height: 3.2rem;">
+        <div class="container-fluid pl-3 pr-3">
+            <a class="text-white" href="/groups"><i class="material-icons align-middle font2rem">menu</i></a>
+            <a class="text-white" href="/home"><i class="material-icons align-middle font2rem">home</i></a>
+            <a class="text-white" href="/profile"><i class="material-icons align-middle font2rem">person</i></a>
+        </div>
+    </nav>
+    <script src="../public/js/script.js" defer></script>
+  
+  <% include ./partials/messages %>

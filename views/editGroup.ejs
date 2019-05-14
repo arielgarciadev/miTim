@@ -1,0 +1,81 @@
+<nav class="navbar fixed-top text-center text-white p-0 bg-a new-shadow">
+  <h6 class="text-center d-inline-block text-truncate font-weight-bolder"
+      style="max-width:80%;margin: auto;height: 2.5rem;line-height: 2.5;"><%=grupo.name%></h6>
+  <a href="/groups/<%=grupo.id%>" class="text-white"><i class="material-icons"
+          style="position: fixed; top: 0.5rem; left: 0.8rem;">navigate_before</i></a>
+          <div style="width: 100%;height: 3rem; align-items: center;" class="d-flex justify-content-around p-3 bg-b">
+            <h4 class="text-center mb-0"> Editar grupo </h4>
+        </div>
+
+</nav>
+    <!-- Main -->
+    <div class="col-md-12 m-auto">
+        <div class="card card-body noborder" style="margin-top:6rem">          
+          <form action="/editGroup" method="POST"> 
+            <div class="d-none">
+              <label for="name">id</label>
+              <input type="name" name="id" class="form-control" placeholder="" value="<%=grupo.id%>" />
+            </div>        
+            <% include ./partials/messages %>   
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input type="name" id="name" name="name" class="form-control" placeholder="" value="<%=grupo.name%>" />
+            </div>
+            <div class="form-group">
+              <label>Fecha</label>
+              <input type="text" class="form-control" placeholder="" name="date" value="<%=grupo.date%>">
+            </div>
+            <div class="form-group">
+                <label>Lugar</label>
+                <input type="text" class="form-control" placeholder="" name="place" value="<%=grupo.place%>">
+              </div>
+              <div class="form-group">
+                <label>Notas</label>
+                <input type="text" class="form-control" placeholder="" name="note" value="<%=grupo.note%>">
+              </div>
+              <div id="gameMode" class="form-group">
+                  <label for="modo">Modo de juego</label>
+                  <div id="modo">
+                  <% if (grupo.mode == "play") { %>
+                    <div class="form-check form-check-inline btn btn-dark">
+                        <input class="form-check-input" type="radio" name="mode" id="inlineRadio1" checked value="play">
+                        <label class="form-check-label" for="inlineRadio1">Asistencia</label>
+                      </div>
+                      <div class="form-check form-check-inline btn btn-dark">
+                        <input class="form-check-input" type="radio" name="mode" id="inlineRadio2" value="calificacion">
+                        <label class="form-check-label" for="inlineRadio2">Calificación</label>
+                      </div>
+                  <% } %>
+                  <% if (grupo.mode == "calificacion") { %>
+                    <div class="form-check form-check-inline btn btn-dark">
+                        <input class="form-check-input" type="radio" name="mode" id="inlineRadio1" value="play">
+                        <label class="form-check-label" for="inlineRadio1">Asistencia</label>
+                      </div>
+                      <div class="form-check form-check-inline btn btn-dark">
+                        <input class="form-check-input" type="radio" name="mode" id="inlineRadio2" checked value="calificacion">
+                        <label class="form-check-label" for="inlineRadio2">Calificación</label>
+                      </div>
+                  <% } %>
+                </div>
+              </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block mt-3">
+              Guardar cambios
+            </button>
+          </form>
+        </div>
+      </div>
+      <form class="" id="resetGroup" action="/resetear/<%=grupo.id%>" method="post">
+        <i class="material-icons" id="warning">warning</i>
+        <h5>Resetear elecciones de los usuarios</h5>
+        <button type="submit" style="margin: 1rem;" class="btn btn-danger"><i class="material-icons" style="vertical-align: bottom;">autorenew</i>Resetaer</button>
+    </form>
+    <!-- Nav inferior. -->
+    <nav class="navbar fixed-bottom navbar-dark bg-a" style="height: 3.2rem;">
+        <div class="container-fluid pl-3 pr-3">
+            <a class="text-white" href="/groups"><i class="material-icons align-middle font2rem">menu</i></a>
+            <a class="text-white" href="/home"><i class="material-icons align-middle font2rem">home</i></a>
+            <a class="text-white" href="/profile"><i class="material-icons align-middle font2rem">person</i></a>
+        </div>
+    </nav>
+  
+  
