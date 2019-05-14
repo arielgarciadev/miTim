@@ -19,11 +19,22 @@ const GroupSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  admin: {
+    type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+  },
+  raters: [{
+    type: String,
+  }],
   //Id de los usuarios del grupo.
   users: [{
     userID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
+    },
+    response: {
+      type: String,
+      default: 'idk',
     },
   }],
 });
