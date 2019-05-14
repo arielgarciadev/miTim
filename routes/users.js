@@ -3,11 +3,15 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-// Cárga modelos
-const Group = require('../models/Group');
-const User = require('../models/User');
+var mongoose = require('mongoose');
 
-const {  forwardAuthenticated } = require('../config/auth');
+const {
+  ensureAuthenticated,
+  forwardAuthenticated
+} = require('../config/auth');
+
+// Cárga modelos
+var User = mongoose.model('User');
 
 // Página de logueo.
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -121,7 +125,7 @@ router.post('/register', (req, res) => {
 // Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/profile',
+    successRedirect: '/home',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
+var mongoose = require('mongoose');
 const formidable = require('formidable'),
   http = require('http'),
   util = require('util');
 var path = require('path');
-var mongoose = require('mongoose');
 
 const {
   ensureAuthenticated,
@@ -12,115 +12,19 @@ const {
 } = require('../config/auth');
 
 // Cárga modelos
-var User = mongoose.model('User');
 const Group = require('../models/Group');
+const User = mongoose.model('User');
 
 // Página de bienvenida.
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 // Página de inicio.
-router.get('/home', ensureAuthenticated, (req, res) => res.render('home'));
-
-// Página de edición de perfil.
-router.get('/createGroup', ensureAuthenticated, (req, res) => res.render('createGroup', {
-  user: req.user,
-}));
-
-// Página de edición de perfil.
-router.get('/editProfile', ensureAuthenticated, (req, res) => res.render('editProfile', {
-  user: req.user,
-}));
-
-// Crear Grupos
-router.post('/createGroup', ensureAuthenticated, (req, res) => {
-  const {
-    name,
-    date,
-    place,
-    note,
-  } = req.body;
-  let errors = [];
-
-  if (!name) {
-    errors.push({
-      msg: 'Ingrese el nombre del grupo.'
-    });
+router.get('/home', ensureAuthenticated, (req, res) => {
+  if (req.user.lastGroup == "") {
+    res.render("home")
+    return;
   }
-  if (!date) {
-    errors.push({
-      msg: 'Ingrese la fecha.'
-    });
-  }
-  if (!place) {
-    errors.push({
-      msg: 'Ingrese el lugar.'
-    });
-  } else {
-    Group.findOne({
-        name: name
-      })
-      .then(group => {
-        if (group) {
-          req.flash(
-            'error_msg',
-            'Este grupo ya existe.'
-          );
-          res.render('createGroup', {
-            errors,
-            name,
-            date,
-            note
-        })} else {
-          const newGroup = new Group({
-            name,
-            date,
-            place,
-            note,
-          });
-          newGroup.save()
-            .then(group => {
-              req.flash(
-                'success_msg',
-                'Creaste el grupo.'
-              );
-              res.redirect('/createGroup');
-            });
-          newGroup.users.push({
-            'userID': req.user.id,
-          });
-          User.findByIdAndUpdate(req.user._id, {
-              "$push": {
-                "group": {
-                  "groupID": newGroup._id,
-                  "name": newGroup.name
-                }
-              }
-            }, {
-              "new": true,
-              "upsert": true
-            },
-            function (err, managerparent) {
-              if (err) throw err;
-              console.log(managerparent);
-            }
-          );
-
-        }
-      });
-  }
-});
-
-// DEMO PARA VER ROLES DE USUARIOS
-router.get('/editProfile', ensureAuthenticated, function (req, res) {
-  let rolUsuario = "admin";
-
-  if (rolUsuario == "admin") {
-    res.render('welcome')
-  } else if (rolUsuario == "user") {
-    res.render('editProfile', {
-      user: req.user,
-    })
-  }
+  res.redirect(`/groups/${req.user.lastGroup}`)
 });
 
 // Página de perfil.
@@ -135,29 +39,30 @@ router.post('/play', ensureAuthenticated, function (req, res) {
     value,
   } = req.body;
 
-// Modifica el valor de "play" por el valor del botón (Yes, No, por default es IDK)
-  User.updateOne({
-    'username': req.user.username,
-    "group.groupID": idGrupo
+  // Modifica el valor de "play" por el valor del botón (Yes, No, por default es IDK)
+
+  Group.updateOne({
+    '_id': mongoose.Types.ObjectId(idGrupo),
+    "users.userID": req.user.id
   }, {
     '$set': {
-      'group.$.play': value,
+      'users.$.response': value,
     }
   }, function (err, result) {
     if (err) throw err;
   })
-
   res.redirect('/groups');
 });
 
 // Página de Grupos.
 router.get('/groups', ensureAuthenticated, function (req, res) {
- 
+
   //Busca los grupos asociados al usuario.
   Group.find({
     "users.userID": req.user.id
   }, function (err, result) {
     if (err) throw err;
+
     //Renderiza y pasa las variables.
     res.render('groups', {
       grupos: result,
@@ -167,6 +72,7 @@ router.get('/groups', ensureAuthenticated, function (req, res) {
 
 
 });
+
 
 // Cambiar imagen de perfil (POST).
 router.post('/editImage', function (req, res) {
