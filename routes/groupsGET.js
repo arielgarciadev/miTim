@@ -21,6 +21,7 @@ router.get('/editProfile', ensureAuthenticated, (req, res) => res.render('editPr
   user: req.user,
 }));
 
+<<<<<<< HEAD
 // Página de edición del grupo.
 router.get('/editGroups/:idGroup/', ensureAuthenticated, (req, res) => {
 
@@ -30,11 +31,25 @@ router.get('/editGroups/:idGroup/', ensureAuthenticated, (req, res) => {
     if (err) throw err;
 
     //Renderiza "editGroup" con los datos del grupo(result) y el usuario(req.user).
+=======
+// Página del grupo
+router.get('/editGroups/:idGroup/', ensureAuthenticated, (req, res) => {
+
+
+  //Busca usuarios asociados al grupo.
+  Group.findById(req.params.idGroup, function (err, result) {
+    if (err) throw err;
+    //Resultados.
+
+
+    console.log(result);
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     res.render('editGroup', {
       user: req.user,
       grupo: result,
     })
   })
+<<<<<<< HEAD
 });
 
 
@@ -47,15 +62,35 @@ router.get('/infoGroup/:idGroup/', ensureAuthenticated, (req, res) => {
     if (err) throw err;
 
     //Renderiza "infoGroup" con los datos del grupo(result) y el usuario(req.user).
+=======
+
+
+
+});
+
+
+//Página de información del grupo
+router.get('/infoGroup/:idGroup/', ensureAuthenticated, (req, res) => {
+  //Busca usuarios asociados al grupo.
+  Group.findById(req.params.idGroup, function (err, result) {
+    if (err) throw err;
+    //Resultados.
+    console.log(result);
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     res.render('infoGroup', {
       user: req.user,
       grupo: result,
     })
   })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
 })
 
 // Página del grupo
 router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
+<<<<<<< HEAD
 
   // Promesas
   (async () => {
@@ -87,6 +122,26 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
         })
 
         // Pushea los datos de los usuarios (name, image y score) en "arrayDatosdeUsuario".
+=======
+  (async () => {
+    try {
+      let arrayDatosdeUsuario = [];
+      let group = await Group.findById(req.params.idGroup)
+
+      User.findById(req.user.id, function (err, result) {
+        if (err) throw err;
+        console.log(result)
+        console.log("result.lastGroup es" + result.lastGroup)
+        console.log("req.params.idGroup es" + req.params.idGroup)
+        result.lastGroup = req.params.idGroup;
+        result.save(console.log("last Group es " + result.lastGroup))
+      })
+
+      for (let i = 0; i < group.users.length; i++) {
+        let usersdelgrupo = await User.findOne({
+          _id: group.users[i].userID
+        })
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
         arrayDatosdeUsuario.push({
           name: usersdelgrupo.name,
           image: usersdelgrupo.userImage,
@@ -95,6 +150,7 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
 
       }
 
+<<<<<<< HEAD
       // Promesa - Busca en la colección "groups" con el ID del grupo y el ID del usuario dentro de raters. 
       let groupRater = await Group.findOne({
         '_id': req.params.idGroup,
@@ -108,10 +164,26 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
         }
         // Si el usuario no esta incluido en "raters" devuelve "no Existe".
         else if (!repetido) {
+=======
+      let groupRater = await Group.findOne({
+        '_id': req.params.idGroup,
+        "raters": {
+          $in: req.user.id
+        }
+      }).then(repetido => {
+        console.log("resultado de repetido, abajo")
+        console.log(repetido)
+        if (repetido) {
+          console.log("repetidoexiste")
+          return "Existe"
+        } else if (!repetido) {
+          console.log("repetidoNOexiste")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
           return "no Existe"
         };
       })
 
+<<<<<<< HEAD
       // Si el valor de group.admin es igual a la ID del usuario. 
       if (group.admin == req.user.id) {
 
@@ -119,11 +191,18 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
         if (group.mode == "play") {
 
           //Renderiza "matchAdmin" con el valor de las variables.
+=======
+
+      if (group.admin == req.user.id) {
+        if (group.mode == "play") {
+          console.log("OPCION 1")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
           res.render('matchAdmin', {
             user: req.user,
             usuarios: arrayDatosdeUsuario,
             grupo: group,
           })
+<<<<<<< HEAD
         }
         // En cambio, si el modo de juego del grupo es "calificacion".
         else if (group.mode == "calificacion") {
@@ -132,16 +211,26 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
           if (groupRater == "Existe") {
 
             //Renderiza "matchAdmin" con el valor de las variables.
+=======
+        } else if (group.mode == "calificacion") {
+          if (groupRater == "Existe") {
+            console.log("OPCION 2")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             res.render('matchAdmin', {
               user: req.user,
               usuarios: arrayDatosdeUsuario,
               grupo: group,
             })
+<<<<<<< HEAD
           } 
           // Si el ID del usuario no se encuentrea en "raters" del grupo.
           else if (groupRater == "no Existe") {
             
             //Renderiza "reviewAdmin" con el valor de las variables.
+=======
+          } else if (groupRater == "no Existe") {
+            console.log("OPCION 3")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             res.render('reviewAdmin', {
               user: req.user,
               usuarios: arrayDatosdeUsuario,
@@ -149,6 +238,7 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
             })
           }
         }
+<<<<<<< HEAD
       } 
       // Si el valor de group.admin no es igual a la ID del usuario. 
       else if (group.admin != req.user.id) {
@@ -157,11 +247,17 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
         if (group.mode == "play") {
 
           //Renderiza "match" con el valor de las variables.
+=======
+      } else if (group.admin != req.user.id) {
+        if (group.mode == "play") {
+          console.log("OPCION 4")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
           res.render('match', {
             user: req.user,
             usuarios: arrayDatosdeUsuario,
             grupo: group,
           })
+<<<<<<< HEAD
         } 
         // En cambio, si el modo de juego del grupo es "calificacion".
         else if (group.mode == "calificacion") {
@@ -170,16 +266,26 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
           if (groupRater == "no Existe") {
             
             //Renderiza "review" con el valor de las variables.
+=======
+        } else if (group.mode == "calificacion") {
+          if (groupRater == "no Existe") {
+            console.log("OPCION 5")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             res.render('review', {
               user: req.user,
               usuarios: arrayDatosdeUsuario,
               grupo: group,
             })
+<<<<<<< HEAD
           } 
           // Y el ID del usuario se encuentrea en "raters" del grupo.
           else if (groupRater == "Existe") {
             
             //Renderiza "match" con el valor de las variables.
+=======
+          } else if (groupRater == "Existe") {
+            console.log("OPCION 6")
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             res.render('match', {
               user: req.user,
               usuarios: arrayDatosdeUsuario,
@@ -188,14 +294,20 @@ router.get('/groups/:idGroup', ensureAuthenticated, async (req, res, next) => {
           }
         }
       }
+<<<<<<< HEAD
     } catch (e) { 
       // Si hay un error renderiza "home"
       res.render('home') 
+=======
+    } catch (e) {
+      res.render('home')
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     }
   })()
 
 })
 
+<<<<<<< HEAD
 // Página para agregar usuarios al grupo 
 router.get('/addUser/:idGroup', ensureAuthenticated, (req, res) => {
 
@@ -205,6 +317,16 @@ router.get('/addUser/:idGroup', ensureAuthenticated, (req, res) => {
     if (err) throw err;
 
     //Renderiza "addUsers" con los datos de las variables (result, req.user).
+=======
+// Página del grupo (AGREGUE CORCHETES)
+router.get('/addUser/:idGroup', ensureAuthenticated, (req, res) => {
+
+  //Busca usuarios asociados al grupo.
+  Group.findById(req.params.idGroup, function (err, result) {
+    if (err) throw err;
+    //Resultados.
+    console.log(result);
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     res.render('addUser', {
       user: req.user,
       grupo: result,

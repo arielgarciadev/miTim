@@ -20,15 +20,22 @@ router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 // Página de inicio.
 router.get('/home', ensureAuthenticated, (req, res) => {
+<<<<<<< HEAD
 
   //Si lastGroup(Se guarda en user cauando se hace un "GET" a la dirección del grupo) esta vacio renderiza "Home"
+=======
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   if (req.user.lastGroup == "") {
     res.render("home")
     return;
   }
+<<<<<<< HEAD
   //Si lastGroup existe renderiza el grupo.
   res.redirect(`/groups/${req.user.lastGroup}`)
 
+=======
+  res.redirect(`/groups/${req.user.lastGroup}`)
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
 });
 
 // Página de perfil.
@@ -44,18 +51,31 @@ router.post('/play', ensureAuthenticated, function (req, res) {
     value,
   } = req.body;
 
+<<<<<<< HEAD
   //Busca en la colección "groups" el ID del grupo y en userID el id del usuario. 
+=======
+  // Modifica el valor de "play" por el valor del botón (Yes, No, por default es IDK)
+
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   Group.updateOne({
     '_id': mongoose.Types.ObjectId(idGrupo),
     "users.userID": req.user.id
   }, {
     '$set': {
+<<<<<<< HEAD
       'users.$.response': value, //Remplaza el valor de "response" del usuario en ese grupo por la respuesta.
+=======
+      'users.$.response': value,
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     }
   }, function (err, result) {
     if (err) throw err;
   })
+<<<<<<< HEAD
   res.redirect('/groups'); //Redirige nuevamante a /groups.
+=======
+  res.redirect('/groups');
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
 });
 
 // Página de Grupos.
@@ -67,7 +87,11 @@ router.get('/groups', ensureAuthenticated, function (req, res) {
   }, function (err, result) {
     if (err) throw err;
 
+<<<<<<< HEAD
     //Renderiza y pasa el contenido de las variables.
+=======
+    //Renderiza y pasa las variables.
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     res.render('groups', {
       grupos: result,
       user: req.user,
@@ -75,7 +99,12 @@ router.get('/groups', ensureAuthenticated, function (req, res) {
   })
 });
 
+<<<<<<< HEAD
 // Solicitud para cambiar imagen de perfil (POST).
+=======
+
+// Cambiar imagen de perfil (POST).
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
 router.post('/editImage', function (req, res) {
 
   //Formidable

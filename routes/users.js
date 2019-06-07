@@ -4,6 +4,11 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 var mongoose = require('mongoose');
 
+<<<<<<< HEAD
+=======
+var mongoose = require('mongoose');
+
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
 const {
   ensureAuthenticated,
   forwardAuthenticated

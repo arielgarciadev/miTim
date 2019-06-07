@@ -12,20 +12,28 @@ const Group = require('../models/Group');
 
 // Crear Grupos
 router.post('/createGroup', ensureAuthenticated, (req, res) => {
+<<<<<<< HEAD
 
   //Guarda los datos del formulario en constantes.
+=======
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   const {
     name,
     date,
     place,
     note,
   } = req.body;
+<<<<<<< HEAD
 
   //Variable de errores.
   let errors = [];
 
   //VALIDACIONES
   //Verifica que todos los campos esten completos.
+=======
+  let errors = [];
+
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   if (!name) {
     errors.push({
       msg: 'Ingrese el nombre del grupo.'
@@ -41,7 +49,10 @@ router.post('/createGroup', ensureAuthenticated, (req, res) => {
       msg: 'Ingrese el lugar.'
     });
   }
+<<<<<<< HEAD
   //Si hubo errores renderiza "register" con los errores.
+=======
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   if (errors.length > 0) {
     res.render('createGroup', {
       errors,
@@ -50,14 +61,22 @@ router.post('/createGroup', ensureAuthenticated, (req, res) => {
       place,
       note
     });
+<<<<<<< HEAD
   } 
   //Si no hubo errores busca en la base de datos el nombre del grupo.
   else {
+=======
+  } else {
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     Group.findOne({
         name: name
       })
       .then(group => {
+<<<<<<< HEAD
         if (group) { //Si existe el grupo, renderiza "createGroup" con el error.
+=======
+        if (group) {
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
           req.flash(
             'error_msg',
             'Este grupo ya existe.'
@@ -70,13 +89,21 @@ router.post('/createGroup', ensureAuthenticated, (req, res) => {
             note
           })
         } else {
+<<<<<<< HEAD
           const newGroup = new Group({ // Si no hubo errores crea un nuevo grupo.
+=======
+          const newGroup = new Group({
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             name,
             date,
             place,
             note,
           });
+<<<<<<< HEAD
           newGroup.save() // Guarda los datos del grupo en la base de datos.
+=======
+          newGroup.save()
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
             .then(group => {
               req.flash(
                 'success_msg',
@@ -85,18 +112,29 @@ router.post('/createGroup', ensureAuthenticated, (req, res) => {
               res.render('createGroup');
             });
           newGroup.users.push({
+<<<<<<< HEAD
             'userID': req.user.id, // Pushea el ID del user dentro del array "users" del grupo.
           });
           newGroup.admin = req.user.id; // Modifica el valor de "admin" del grupo por la ID del usuario, para que el creador del grupo sea el administrador.
+=======
+            'userID': req.user.id,
+          });
+          newGroup.admin = req.user.id;
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
         }
       });
   }
 });
 
+<<<<<<< HEAD
 // Solicitud para editar el grupo (POST)
 router.post('/editGroup', ensureAuthenticated, (req, res) => {
 
   //Guarda los datos del formulario en constantes.
+=======
+// Página del grupo (POST)
+router.post('/editGroup', ensureAuthenticated, (req, res) => {
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   const {
     id,
     name,
@@ -105,12 +143,20 @@ router.post('/editGroup', ensureAuthenticated, (req, res) => {
     note,
     mode,
   } = req.body;
+<<<<<<< HEAD
 
   //Busca en la colección "groups" con el Id del grupo.
   Group.findById(req.body.id, function (err, result) {
 
     if (err) throw err;
     
+=======
+  console.log(req.body)
+
+  Group.findById(req.body.id, function (err, result) {
+    if (err) throw err;
+    console.log(result)
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     // Quitar espacios en blanco.
     var name = req.body.name.trim();
     var date = req.body.date.trim();
@@ -133,7 +179,11 @@ router.post('/editGroup', ensureAuthenticated, (req, res) => {
     result.note = note;
     result.mode = mode;
 
+<<<<<<< HEAD
     // Guarda las modificaciones del grupo y redirije a la pagina de edicion del grupo.
+=======
+    // Guardado.
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     result.save(function (err) {
       req.flash(
         'success_msg',
@@ -145,27 +195,40 @@ router.post('/editGroup', ensureAuthenticated, (req, res) => {
   })
 });
 
+<<<<<<< HEAD
 // Solicitud para agregar usuarios al grupo (POST)
 router.post('/addUser/:idGroup', ensureAuthenticated, (req, res) => {
 
   //Guarda los datos del formulario en constantes.
+=======
+// Página del grupo
+router.post('/addUser/:idGroup', ensureAuthenticated, (req, res) => {
+
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   const {
     username,
   } = req.body;
 
+<<<<<<< HEAD
   //VALIDACIONES
 
   //Verifica si ingresamos el nombre en el formulario.
   // Si no lo hicimos vuelve a la misma página con el error.
+=======
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
   if (!username) {
     req.flash(
       'error_msg',
       'Ingrese usuario.'
     );
     res.redirect(`/addUser/${req.params.idGroup}`)
+<<<<<<< HEAD
   } 
   // Si ingresamos el usuario lo busca por el usuario en la colección "users".
   else if (username) {
+=======
+  } else if (username) {
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     User.findOne({
         username: username
       })
@@ -248,11 +311,19 @@ router.post('/scoreGroup/:idGroup', ensureAuthenticated, (req, res) => {
     })
   }
   Group.findById(req.params.idGroup, function (err, result) {
+<<<<<<< HEAD
     
     if (err) throw err;
     
     result.raters.push(req.user.id);
     
+=======
+    if (err) throw err;
+    //Resultados.
+    console.log(result);
+    result.raters.push(req.user.id);
+    console.log("pusheadp a Raters  =>" + req.user.id)
+>>>>>>> 4de7dab65030dad48c97b4cb95bd16ef7dc5f5c9
     result.save(res.redirect(`/groups/${req.params.idGroup}`));
 
   })
