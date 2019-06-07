@@ -16,26 +16,19 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
-  },
+  },  
   userImage: {
     type: String,
     default: 'default.png'
   },
-  //Id de los grupos del usuario.
-  group: [{
-    groupID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Group'
-    },
-    play: {
-      type: String,
-      default: 'idk',
-    }
-  }],
-});
+  lastGroup: {
+    type: String,
+    default: ''
+  },
+  score: [{
+    type: Number,
+    dafault: ""
+  }]
+})
 
 module.exports = mongoose.model('User', UserSchema);

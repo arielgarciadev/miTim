@@ -1,13 +1,15 @@
 # App miTim para ComIT
 
-Organizar partidos de fútbol.
+**miTim** es una aplicación para organizar partidos, ver en tiempo real quien va asistir y calificar a los jugadores después de cada partido.
 
-## Cosas por hacer:
+### Info
 
-### EJS 
-    editGroup
-    infoGroup
-    newGroup
+Para probar la aplicación se puede registrar, o utilizar los siguientes datos:
 
-### CSS
-Ver compatibilidad de "object-fit: cover" en otros navegadores.
+| Correo | Contraseña |
+| ------ | ------ |
+| lionel@mail.com | 123456 |
+
+#### To Do
+* Modificar Readme.MD
+* Modificar routes
