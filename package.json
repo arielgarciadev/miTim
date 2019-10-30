@@ -18,7 +18,7 @@
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.16.1",
     "formidable": "^1.2.1",
-    "mongoose": "^5.5.5",
+    "mongoose": "^5.7.5",
     "offline": "0.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
